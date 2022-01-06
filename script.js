@@ -18,6 +18,7 @@ class Root {
     this.vax = Math.random() * 0.6 - 0.3;
     this.angleY = Math.random() * 6.2;
     this.vay = Math.random() * 0.6 - 0.3;
+    this.lightness = 10;
   }
 
   update() {
@@ -26,10 +27,11 @@ class Root {
     this.size += this.vs;
     this.angleX += this.vax;
     this.angleY += this.vay;
+    if (this.lightness < 70) this.lightness += 0.25;
     if (this.size < this.maxSize) {
       ctx.beginPath();
       ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-      ctx.fillStyle = 'hsla(315, 89%, 64%, 0.99)';
+      ctx.fillStyle = 'hsl(38, 100%, ' + this.lightness + '%)';
       ctx.fill();
       ctx.stroke();
       requestAnimationFrame(this.update.bind(this));
@@ -38,7 +40,9 @@ class Root {
 }
 
 window.addEventListener('mousemove', (e) => {
-  const root = new Root(e.x, e.y);
-  root.update();
+  for (let i = 0; i < 3; i++) {
+    const root = new Root(e.x, e.y);
+    root.update();  
+  }
 })
 
