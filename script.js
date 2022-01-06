@@ -25,6 +25,7 @@ class Root {
       ctx.fillStyle = '#FD0'
       ctx.fill();
       ctx.stroke();
+      requestAnimationFrame(this.update.bind(this));
     } 
   }
 }
