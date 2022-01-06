@@ -19,12 +19,18 @@ class Root {
     this.x += this.speedX;
     this.y += this.speedY;
     this.size += 0.1;
-    if (this.size > this.maxSize) {
+    if (this.size < this.maxSize) {
       ctx.beginPath();
       ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-      ctx.fillStyle = 'hsl(140,100%,50%)';
+      ctx.fillStyle = '#FD0'
       ctx.fill();
       ctx.stroke();
     } 
   }
 }
+
+window.addEventListener('mousemove', (e) => {
+  const root = new Root(e.x, e.y);
+  root.update();
+  
+})
