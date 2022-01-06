@@ -33,11 +33,37 @@ class Root {
     if (this.size < this.maxSize) {
       ctx.beginPath();
       ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-      ctx.fillStyle = 'hsl(38, 100%, ' + this.lightness + '%)';
+      ctx.fillStyle = 'hsl(107, 100%, ' + this.lightness + '%)';
       ctx.fill();
       ctx.stroke();
       requestAnimationFrame(this.update.bind(this));
-    } 
+    }
+    else {
+      const flower = new Flower(this.x, this.y, this.size, this.size);
+      flower.grow();
+    }
+  }
+}
+
+class Flower {
+  constructor (x,y ,size) {
+    this.x = x;
+    this.y = y;
+    this.size = size;
+    this.maxFlowerSize = this.size + Math.random() * 50;
+    this.image = new Image();
+    this.image.src = './assets/flowers.png';
+    this.frameSize = 100;
+    this.frameX = Math.floor(Math.random() * 3);
+    this.frameY = Math.floor(Math.random() * 3);
+    this.size > 11.5 ? this.willFlower = true : this.willFlower = false;
+  }
+  grow () {
+    if (this.size < this.maxFlowerSize && this.willFlower) {
+      this.size += 0.3;
+      ctx.drawImage(this.image, this.frameSize * this.frameX, this.frameSize * this.frameY, this.frameSize, this.frameSize, this.x - this.size/2, this.y, this.size, this.size);
+      requestAnimationFrame(this.grow.bind(this));
+    }
   }
 }
 
